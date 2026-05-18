@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from routers import submit
-
+from routers.dashboard import router as dashboard_router
 app = FastAPI(title="VibeCheck API", version="0.1.0")
 
 app.add_middleware(
@@ -17,7 +17,10 @@ app.add_middleware(
 )
 
 app.include_router(submit.router, prefix="/api")
-
+app.include_router(
+    dashboard_router,
+    prefix="/api",
+)
 
 @app.get("/api/health")
 async def health():
