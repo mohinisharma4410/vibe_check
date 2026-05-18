@@ -1,0 +1,26 @@
+!pip install qrcode[pil]
+
+import os
+import qrcode
+from IPython.display import display
+
+BASE_URL = "http://localhost:5173"
+
+TOTAL_TABLES = 20
+
+os.makedirs("qrs", exist_ok=True)
+
+for table in range(1, TOTAL_TABLES + 1):
+
+    url = f"{BASE_URL}/?table={table}"
+
+    qr = qrcode.make(url)
+
+    path = f"qrs/table_{table}.png"
+
+    qr.save(path)
+
+    print(f"Generated QR for Table {table}")
+    print(url)
+
+    display(qr)
