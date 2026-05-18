@@ -1,1 +1,48 @@
-# vibe_check
+VibeCheck — Full Feature Brief
+For internal use — share with your co-builder
+What We're Building
+VibeCheck is a SaaS product sold to café owners. Each café gets QR codes placed at their tables. When a customer scans it, they go through a quick anonymous feedback flow — no login, no email, no app download. The owner gets a dashboard with rich, table-linked, time-stamped feedback they can actually act on. The customer gets a fun, shareable experience that takes under 60 seconds.
+The Core Problem
+Café owners currently get feedback in two ways — someone complains to their face (rare, awkward) or a Google review appears days later (delayed, biased, no context). Neither tells them which table had a bad experience, which shift caused it, or what specifically went wrong. Customers on the other hand don't speak up because it's socially uncomfortable. They just leave, never come back, and maybe post a bad review a week later. VibeCheck sits in between — private enough for the customer to be honest, structured enough for the owner to take action.
+Features — Customer Side
+1. QR at the TableEvery table in the café has its own unique QR code, printed and placed by the owner. When scanned, it opens a mobile web page — no app install required. The QR is pre-linked to the table number in our database, so every submission is automatically tagged with which table it came from and what time it was submitted.
+2. Selfie Mood ReaderThe page opens the camera and asks the customer to take a selfie. The image is processed entirely on the client side using a face expression model — we detect whether the emotion is happy, neutral, or negative. The raw image is never uploaded or stored anywhere. Once processed, we show the customer a fun, personalised result based on their expression — something like "you look like someone who needs another espresso ☕" or "okay you're clearly having a great time, spill the secret." This turns a boring step into a micro-moment of delight. The customer then confirms whether the mood reading was accurate, which adds a data point for the owner.
+3. Vibe ScoreInstead of a generic 1–5 star rating, the customer picks from an animated scale with five states — Dead Inside, Meh, Decent, Vibing, Absolutely Cooked. The scale is visually bold and designed to be screenshot-worthy. It captures emotional tone better than numbers and feels fun to interact with, which increases completion rate.
+4. AI Voice FeedbackThe customer can record a short voice note — up to 30 seconds — describing their experience. The moment they finish recording, the original audio is visually "deleted" on screen with a clear confirmation message, and an AI-generated voice is created from their words. This converted audio is what gets forwarded to the owner. The customer can hear the AI version before submitting. This guarantees true voice anonymity — the owner hears feedback in a neutral voice, not the customer's actual voice.
+5. Rotating Brutal QuestionEach visit shows exactly one bonus question, pulled randomly from a curated pool. These are designed to get real answers — "Did your server seem like they wanted to be here?", "Rate the bathroom honestly", "What would you fix if you owned this place?", "Was the music too loud, too low, or just right?" The question rotates per session, so regulars never see the same one twice. This keeps the experience fresh and ensures the owner collects diverse intel over time.
+6. Ghost NoteA free text box capped at 280 characters with the prompt — "Say the thing you didn't say to their face." No validation, no judgment, no filter. Completely optional. This is the rawest feedback channel in the product. People use it to say things they'd never say out loud — a rude server, a cold dish, a dirty corner, a genuinely beautiful moment. For owners, this box often contains the most valuable information in the entire submission.
+7. The Receipt CardAfter the customer submits, they get a beautifully designed card — think a digital receipt but aesthetic. It shows their mood emoji, their vibe score, the café name, the date, and an AI-generated one-liner summary of their visit based on the inputs. Example — "A solid 7/10 afternoon. The coffee carried." The card is fully shareable to Instagram stories, WhatsApp, or can be saved to camera roll. This is the viral growth loop — every share is free marketing for the café and free awareness for VibeCheck.
+8. Anonymous Streak TrackerWe store an anonymous token in the customer's browser — no login, no account. If they scan the same café's QR again, we detect it and show "Welcome back! This is visit 3 🔥" — purely on their device. After 5 visits, the app shows a small message like "You're a regular — show this to your server for a surprise." The café owner sets what that surprise is — a free coffee, a discount, whatever. This creates loyalty behaviour without a loyalty app. Owners love it because it rewards regulars passively.
+Features — Owner Dashboard
+9. Feedback FeedEvery submission appears in real time on the owner's dashboard. Each entry shows — table number, time of submission, vibe score, mood from selfie, the AI voice note (playable), the rotating question answer, and the ghost note if one was written. The owner can filter by table, by vibe score, by time, or by date range.
+10. Table + Time TaggingThis is the core operational feature. Because each QR is linked to a specific table, the owner can see exactly where in the café feedback is coming from. Combined with the timestamp, they can cross-reference with their internal records — who was serving that table, what was ordered, what time the rush hit. If they use a menu QR system, we can pull order data from that too in a later phase. Otherwise, the bill counter can manually log orders against table numbers.
+11. Mood HeatmapA visual grid on the dashboard — time slots on the X axis, table numbers on the Y axis, colored by average vibe score. Green means good, amber means mixed, red means consistently bad. Owners can spot patterns instantly — "every Friday evening table 6 through 9 goes red" or "Monday mornings are consistently amber across all tables." This is the data that turns VibeCheck from a feedback tool into an operational intelligence tool.
+12. Weekly AI Summary EmailEvery Monday morning, the owner gets an email digest summarising the past week. It includes — top 3 issues mentioned across ghost notes and voice feedback, best performing tables, worst performing time slots, overall vibe trend compared to last week, and one suggested action ("Consider checking in on evening shift staffing on Fridays"). This is generated by Claude using the week's raw feedback data.
+13. Multi-Location Support (Pro)For café chains or owners with multiple outlets, the dashboard has a location switcher. They can view each location's feedback independently or see a combined view. Heatmaps, vibe trends, and AI summaries work per location.
+Privacy Architecture
+This is non-negotiable and must be communicated clearly in the UI at every step.
+No name, email, phone number, or any personal identifier is ever collected from the customer
+Selfie is processed locally on the device — the raw image never leaves the browser
+Voice recording original is deleted client-side before transmission — only the AI-converted audio is sent
+The anonymous streak token is stored in the browser's local storage — it is not linked to any server-side identity
+Table number and timestamp are metadata, not personal data
+Every data processing step is shown to the user in real time — they watch it happen, not just read a privacy policy
+Viral Growth Loop
+The Receipt Card is the primary growth mechanism. When a customer shares it to their Instagram story, two things happen — their followers see the café name and potentially visit, and VibeCheck branding appears on every card. We watermark lightly at the bottom — "Feedback by VibeCheck." Café owners on the free or starter tier get the watermark, which is fine because it markets us. Pro tier owners can white-label the card with their own branding.
+Monetisation
+Starter — ₹999/monthUp to 5 tables, basic feedback feed, vibe score and ghost note, standard receipt card with VibeCheck branding, 30-day data history.
+Growth — ₹2,499/monthUp to 20 tables, full dashboard with mood heatmap, AI voice feedback, weekly AI summary email, anonymous streak and loyalty hint, 90-day data history.
+Pro — ₹4,999/monthUnlimited tables, multi-location support, white-label receipt card, menu QR or POS data integration, priority support, unlimited data history.
+Build Roadmap
+Phase 1 — Launch (what we ship first)QR generation per table, selfie mood reader, vibe score, ghost note, basic receipt card, basic owner dashboard with feedback feed and table + time tagging.
+Phase 2 — Stickiness (next 60 days)AI voice conversion flow, rotating brutal questions, anonymous streak tracker, loyalty hint after 5 visits, mood heatmap on dashboard.
+Phase 3 — Intelligence (next 90 days after that)Weekly AI summary email, menu QR data linking, POS integration, multi-location dashboard, white-label receipt card, advanced filters and exports.
+Tech Considerations to Discuss
+Face expression detection — can use a lightweight client-side model like face-api.js or MediaPipe so no image ever leaves the device
+Voice-to-AI-voice — needs a TTS pipeline, likely ElevenLabs or a similar API on the backend
+QR generation — each QR encodes a unique URL with the table ID and café ID as parameters
+Receipt Card — generated dynamically as an image using canvas or a server-side renderer
+Anonymous token — browser localStorage, scoped to the café's domain or subdomain
+Dashboard — standard web app, real-time updates via websocket or polling
+ 
+ 
