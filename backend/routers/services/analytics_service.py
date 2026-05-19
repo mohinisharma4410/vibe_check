@@ -2,7 +2,7 @@ from collections import defaultdict, Counter
 from statistics import mean
 from datetime import datetime
 
-from db import get_supabase
+from routers.services.db import get_supabase
 
 
 async def fetch_rows(cafe_id: str):
@@ -37,7 +37,7 @@ async def get_dashboard_overview(cafe_id: str):
 
     low_vibes = len([
         r for r in rows
-        if (r.get("vibe_score") or 0) <= 4
+        if (r.get("vibe_score") or 0) <= 2
     ])
 
     voice_notes = len([

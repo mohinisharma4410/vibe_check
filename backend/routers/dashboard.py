@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from services.analytics_service import (
+from routers.services.analytics_service import (
     get_dashboard_overview,
     get_feedback_feed,
     get_heatmap_data,
